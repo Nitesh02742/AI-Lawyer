@@ -1,0 +1,120 @@
+{
+  "id": "T04_messy_story",
+  "type": "messy",
+  "expect": "Untangles the timeline; asks focused questions; does not invent dates.",
+  "model": "gemini-3.8-flash",
+  "transcript": [
+    {
+      "user": "ok so basically gym took 12 months fees like 15k in jan or maybe feb, then they shut the branch in june?? said go to other branch which is 14 km away, i asked for refund for remaining months they said no refund policy. also trainer was rude earlier but whatever. my friend also same issue. what can we do",
+      "assistant": "I am really sorry to hear about this. Paying for a full year upfront and having the gym close its branch just a few months later is very frustrating, especially when the alternative branch is 14 km away.\n\nSince you paid for a service, you count as a consumer [KB:CPA-CONSUMER-DEF] under the Consumer Protection Act, 2019 [KB:CPA-ACT]. Even if they mention a \"no refund policy,\" you may have a claim to get a refund for the unused months.\n\nTo help you better, could you tell me:\n1. Do you have payment receipts or bank screenshots showing the ₹15,000 paid?\n2. Do you have any written proof (like WhatsApp messages, emails, or notices) showing that the branch closed and that they refused your refund?\n\n---\n\n### What you can do (Step-by-Step)\n\nHere are your options, starting from the easiest and cheapest:\n\n1. **National Consumer Helpline (NCH)**  \n   Before taking legal steps, you can file a free complaint with the National Consumer Helpline. You can call **1915** (8 AM to 8 PM) or **1800-11-4000**, send a WhatsApp message to **8800001915**, or submit it online at **consumerhelpline.gov.in** [KB:NCH].\n\n2. **Legal Notice**  \n   You can send a formal legal notice to the gym owner asking for a pro-rata refund for the remaining months. This often pushes businesses to resolve the matter.\n\n3. **District Consumer Commission**  \n   If they still refuse, you can file a complaint at the District Consumer Commission [KB:CPA-WHERE] because the payment amount is under Rs 50 lakh [KB:CPA-JURIS-MONEY]. You can file this online through the **e-Jagriti** portal [KB:EJAGRITI]. Please note that consumer complaints must be filed within 2 years from when the issue arose [KB:CPA-LIMITATION].\n\nIf you like, I can help you build your case file and draft a legal notice to send to the gym management.\n\n*This is general consumer information, not a lawyer's legal advice.*",
+      "guard_issues": [],
+      "guard_retried": false,
+      "sources": [
+        {
+          "id": "CPA-CONSUMER-DEF",
+          "title": "Who counts as a consumer",
+          "url": "https://www.indiacode.nic.in/bitstream/123456789/18964/1/cpa.pdf"
+        },
+        {
+          "id": "CPA-ACT",
+          "title": "The main consumer law",
+          "url": "https://www.indiacode.nic.in/handle/123456789/15256"
+        },
+        {
+          "id": "NCH",
+          "title": "Free pre-court route: National Consumer Helpline",
+          "url": "https://consumerhelpline.gov.in/public/about"
+        },
+        {
+          "id": "CPA-WHERE",
+          "title": "Which city's commission (place of filing)",
+          "url": "https://www.indiacode.nic.in/bitstream/123456789/18964/1/cpa.pdf"
+        },
+        {
+          "id": "CPA-JURIS-MONEY",
+          "title": "Which commission to go to (by amount paid)",
+          "url": "https://www.thc.nic.in/Central%20Governmental%20Rules/Consumer%20Protection%20(Jurisdiction%20of%20the%20District%20Commission,%20the%20State%20Commission%20and%20the%20National%20Commission)%20Rules,%202021.pdf"
+        },
+        {
+          "id": "EJAGRITI",
+          "title": "Filing a case online: e-Jagriti",
+          "url": "https://eparlib.sansad.in/bitstream/123456789/2996292/1/AU4546_s9hvb0.pdf"
+        },
+        {
+          "id": "CPA-LIMITATION",
+          "title": "Deadline to file a complaint",
+          "url": "https://www.indiacode.nic.in/bitstream/123456789/18964/1/cpa.pdf"
+        }
+      ],
+      "model_used": "gemini-3.6-flash"
+    }
+  ],
+  "case_file": {
+    "case_file": {
+      "summary": "The consumer paid Rs 15,000 for a 12-month gym membership in January or February. The gym closed the branch in June and asked the consumer to go to another branch 14 km away. The consumer requested a refund for the remaining months, but the gym refused citing a no-refund policy.",
+      "in_scope": true,
+      "consumer_name": "not provided",
+      "opposite_party": "not provided",
+      "product_or_service": "Gym membership",
+      "amount_paid": "Rs 15,000",
+      "timeline": [
+        {
+          "date": "January or February",
+          "event": "Paid Rs 15,000 for 12 months gym membership"
+        },
+        {
+          "date": "June",
+          "event": "Gym shut down the branch, asked consumer to go to another branch 14 km away, and refused refund request for remaining months"
+        }
+      ],
+      "evidence_have": [],
+      "evidence_missing": [
+        "Payment receipts or bank statements showing Rs 15,000 paid",
+        "Written notice or message regarding branch closure",
+        "Written refusal of refund from gym management"
+      ],
+      "what_they_want": "Refund for remaining months",
+      "next_steps": [
+        "File a complaint free with National Consumer Helpline by calling 1915 or online at consumerhelpline.gov.in [KB:NCH]",
+        "Send a formal legal notice to the gym owner demanding a pro-rata refund for remaining months",
+        "File a complaint at the District Consumer Commission [KB:CPA-WHERE] online using the e-Jagriti portal [KB:EJAGRITI]"
+      ],
+      "needs_real_lawyer": false,
+      "lawyer_reason": ""
+    },
+    "issues": [],
+    "lawyer_flags": []
+  },
+  "legal_notice": {
+    "text": "Date: [Date]\n\nTo,  \nThe Manager / Grievance Officer,  \n[Name of Gym / Opposite Party],  \n[Address of Gym / Opposite Party]  \n\n**Subject: Notice demanding refund of unused gym membership fee**\n\nDear Sir/Madam,\n\nI am writing to bring to your notice a dispute regarding my gym membership under the Consumer Protection Act, 2019 [KB:CPA-ACT], as a consumer who paid for your services [KB:CPA-CONSUMER-DEF].\n\nThe facts of the matter are as follows:\n1. In January or February, I paid an amount of Rs 15,000 for a 12-month gym membership at your branch.\n2. In June, your company shut down this branch and asked me to attend another branch situated 14 km away.\n3. As traveling to the new location is not practical for me, I requested a pro-rata refund for the remaining months of my membership. However, your management refused to process the refund, citing a no-refund policy.\n\nSince the service at the agreed branch has been discontinued, I request you to issue a refund for the remaining unused months of my membership within 15 days of receiving this notice.\n\nIf I do not receive a resolution or response within 15 days, I may register a complaint with the National Consumer Helpline by calling 1915 or online at consumerhelpline.gov.in [KB:NCH]. I may also proceed to file a formal complaint before the District Consumer Commission [KB:CPA-WHERE] online via the e-Jagriti portal [KB:EJAGRITI].\n\nI hope to resolve this matter amicably. \n\nYours sincerely,\n\n[Your Full Name]  \n[Your Address]  \n[Your Contact Info]  \n\n***\n*This is general information, not a lawyer's advice.*",
+    "issues": [],
+    "retried": false,
+    "sources": [
+      {
+        "id": "CPA-ACT",
+        "title": "The main consumer law",
+        "url": "https://www.indiacode.nic.in/handle/123456789/15256"
+      },
+      {
+        "id": "CPA-CONSUMER-DEF",
+        "title": "Who counts as a consumer",
+        "url": "https://www.indiacode.nic.in/bitstream/123456789/18964/1/cpa.pdf"
+      },
+      {
+        "id": "NCH",
+        "title": "Free pre-court route: National Consumer Helpline",
+        "url": "https://consumerhelpline.gov.in/public/about"
+      },
+      {
+        "id": "CPA-WHERE",
+        "title": "Which city's commission (place of filing)",
+        "url": "https://www.indiacode.nic.in/bitstream/123456789/18964/1/cpa.pdf"
+      },
+      {
+        "id": "EJAGRITI",
+        "title": "Filing a case online: e-Jagriti",
+        "url": "https://eparlib.sansad.in/bitstream/123456789/2996292/1/AU4546_s9hvb0.pdf"
+      }
+    ]
+  }
+}

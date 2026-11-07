@@ -1,0 +1,135 @@
+{
+  "id": "T02_defective_phone_hinglish",
+  "type": "normal",
+  "expect": "Replies in Hinglish; asks about warranty/bill; explains steps.",
+  "model": "gemini-3.8-flash",
+  "transcript": [
+    {
+      "user": "Bhai maine local shop se 18000 ka phone liya tha, 10 din me hi screen me lines aa gayi. Shop wala bol raha hai company ke service center jao, service center bol raha physical damage hai jabki phone kabhi gira hi nahi. Kya karu?",
+      "assistant": "Aap pareshan mat hoiye, main aapki poori madad karunga. Phone sirf 10 din purana hai, toh aapke paas iska solution paane ka claim ho sakta hai.\n\nSahi raasta batane ke liye, mujhe bass **3 choti baatein** bataiye:\n1. Kya aapke paas phone ka pakka bill (invoice) hai?\n2. Kya service center ne aapko koi job sheet ya written paper diya hai jisme unhone 'physical damage' likha hai?\n3. Aap abhi kya chahte hain — phone replacement, free repair, ya refund?\n\n---\n\n**Aap abhi ye steps le sakte hain:**\n\n1. **Brand ke Grievance Officer ko Mail karein:** Phone brand ki official website par jaakar unke Grievance Officer ya Customer Head ko mail bhejein. Mail me bill aur job sheet ki photo lagayein aur likhein ki phone gira nahi hai.\n2. **National Consumer Helpline (NCH):** Agar shopkeeper ya service center sunvai nahi karta, toh aap free me National Consumer Helpline par complaint darj kara sakte hain [KB:NCH]. \n   * **Call:** 1915 par call karein [KB:NCH]\n   * **WhatsApp:** 8800001915 par message karein [KB:NCH]\n\nAap upar diye gaye sawalon ka jawab dein, fir agar zaroorat hui toh hum aapka case file taiyaar karne aur legal notice bhejne me bhi madad kar sakte hain.\n\n*Yeh sirf aam jankari hai, kisi vakeel ki salah nahi hai.*",
+      "guard_issues": [],
+      "guard_retried": false,
+      "sources": [
+        {
+          "id": "NCH",
+          "title": "Free pre-court route: National Consumer Helpline",
+          "url": "https://consumerhelpline.gov.in/public/about"
+        }
+      ],
+      "model_used": "gemini-3.6-flash"
+    },
+    {
+      "user": "Bill hai mere paas, aur service center ka job sheet bhi. Mujhe replacement chahiye.",
+      "assistant": "Aapke paas Bill aur Job Sheet dono hain, yeh bahut acchi baat hai. Isse aapka case majboot hota hai. \n\nChunki aapne 18,000 me phone khareeda hai aur bill aapke paas hai, aap Consumer Protection Act, 2019 ke tehat ek consumer hain [KB:CPA-CONSUMER-DEF]. \n\nAap replacement ke liye ye stepwise raaste apna sakte hain:\n\n1. **Brand ke Head / Grievance Officer ko Mail karein:** \n   Phone company ki website se unke Grievance Officer ki email ID lein. Mail me Bill aur Job sheet ki photo attach karein. Likhein ki phone bilkul gira nahi hai aur 10 din ke andar screen me lines aayi hain. Unse replacement ki maang karein.\n\n2. **National Consumer Helpline (NCH) me complaint karein:**\n   Agar company ya shopkeeper aapki baat nahi sunte, toh aap free me National Consumer Helpline par complaint register kara sakte hain [KB:NCH]:\n   * **Call:** 1915 (subah 8 baje se raat 8 baje tak) [KB:NCH]\n   * **WhatsApp:** 8800001915 [KB:NCH]\n   * **Website:** consumerhelpline.gov.in [KB:NCH]\n\n3. **Legal Notice aur Consumer Commission:**\n   Agar NCH se bhi hal nahi nikalta, toh aap unhe ek formal Legal Notice bhej sakte hain. Uske baad bhi hal na mile toh aap apne jile ki District Consumer Commission me case file kar sakte hain [KB:CPA-JURIS-MONEY] [KB:CPA-WHERE]. Iski complaint aap ghar baithe online portal **e-Jagriti** par bhi daakhil kar sakte hain [KB:EJAGRITI].\n\nAgar aap chahein, toh main aapka case file taiyaar karne aur unhe bhejne ke liye Legal Notice draft karne me aapki madad kar sakta hoon (aap app me diye gaye buttons par click kar sakte hain).\n\n*Yeh sirf aam jankari hai, kisi vakeel ki salah nahi hai.*",
+      "guard_issues": [],
+      "guard_retried": false,
+      "sources": [
+        {
+          "id": "CPA-CONSUMER-DEF",
+          "title": "Who counts as a consumer",
+          "url": "https://www.indiacode.nic.in/bitstream/123456789/18964/1/cpa.pdf"
+        },
+        {
+          "id": "NCH",
+          "title": "Free pre-court route: National Consumer Helpline",
+          "url": "https://consumerhelpline.gov.in/public/about"
+        },
+        {
+          "id": "CPA-JURIS-MONEY",
+          "title": "Which commission to go to (by amount paid)",
+          "url": "https://www.thc.nic.in/Central%20Governmental%20Rules/Consumer%20Protection%20(Jurisdiction%20of%20the%20District%20Commission,%20the%20State%20Commission%20and%20the%20National%20Commission)%20Rules,%202021.pdf"
+        },
+        {
+          "id": "CPA-WHERE",
+          "title": "Which city's commission (place of filing)",
+          "url": "https://www.indiacode.nic.in/bitstream/123456789/18964/1/cpa.pdf"
+        },
+        {
+          "id": "EJAGRITI",
+          "title": "Filing a case online: e-Jagriti",
+          "url": "https://eparlib.sansad.in/bitstream/123456789/2996292/1/AU4546_s9hvb0.pdf"
+        }
+      ],
+      "model_used": "gemini-3.6-flash"
+    }
+  ],
+  "case_file": {
+    "case_file": {
+      "summary": "User purchased a phone for Rs 18,000 from a local shop. Within 10 days, lines appeared on the screen. The shopkeeper referred the user to the brand service center, where the service center claimed physical damage in the job sheet, which the user denies as the phone was never dropped.",
+      "in_scope": true,
+      "consumer_name": "not provided",
+      "opposite_party": "Local shop and brand service center",
+      "product_or_service": "Phone",
+      "amount_paid": "Rs 18,000",
+      "timeline": [
+        {
+          "date": "not provided",
+          "event": "User purchased phone for Rs 18,000 from local shop."
+        },
+        {
+          "date": "10 days after purchase",
+          "event": "Lines appeared on the screen."
+        },
+        {
+          "date": "not provided",
+          "event": "Shopkeeper instructed user to visit brand service center."
+        },
+        {
+          "date": "not provided",
+          "event": "Service center inspected phone and issued job sheet citing physical damage."
+        }
+      ],
+      "evidence_have": [
+        "Purchase bill",
+        "Service center job sheet"
+      ],
+      "evidence_missing": [
+        "Photos of screen showing lines without external physical damage",
+        "Email correspondence with seller or brand grievance officer"
+      ],
+      "what_they_want": "Phone replacement",
+      "next_steps": [
+        "Email the brand's Grievance Officer with copies of the bill and job sheet requesting replacement.",
+        "Register a free complaint with the National Consumer Helpline via call at 1915 or WhatsApp at 8800001915 [KB:NCH].",
+        "Issue a legal notice to the seller and service center.",
+        "File a complaint at the District Consumer Commission [KB:CPA-JURIS-MONEY] via the e-Jagriti portal [KB:EJAGRITI]."
+      ],
+      "needs_real_lawyer": false,
+      "lawyer_reason": "none"
+    },
+    "issues": [],
+    "lawyer_flags": []
+  },
+  "legal_notice": {
+    "text": "**LEGAL NOTICE**\n\n**From:**  \n[Your Full Name]  \n[Your Full Address]  \n\n**To:**  \n[Name of Local Shop / Brand Service Center / Grievance Officer]  \n[Address of Shop / Service Center]  \n\n**Date:** [Date of sending notice]  \n\n**Subject: Notice requesting replacement for defective phone (Payment of Rs 18,000)**\n\nSir/Madam,\n\nI am writing this notice regarding a phone I purchased from your shop/brand for an amount of Rs 18,000 on [Date of Purchase]. As I have paid for this product for personal use, I am a consumer under Section 2(7) of the Consumer Protection Act, 2019 [KB:CPA-CONSUMER-DEF].\n\nThe relevant facts of the case are as follows:\n1. On [Date of Purchase], I purchased the phone for Rs 18,000 from [Name of Shop] (Purchase Bill is in my possession).\n2. Within 10 days of purchase, vertical/horizontal lines appeared on the screen of the phone.\n3. As instructed by the shopkeeper, I visited the brand service center to report the defect.\n4. The service center inspected the phone and issued a job sheet stating that the defect is due to physical damage. \n5. I deny the finding in the job sheet, as the phone was never dropped, misused, or physically damaged.\n\nBecause the product developed display lines within 10 days of purchase without any physical drop, I hereby request you to provide a **complete replacement of the phone** with a new, defect-free unit.\n\nPlease resolve this matter and arrange for the replacement within **15 days** from the receipt of this notice. \n\nIf this issue is not resolved within 15 days, I may register a complaint with the National Consumer Helpline by calling 1915 or sending a WhatsApp message to 8800001915 [KB:NCH]. Furthermore, I may initiate appropriate proceedings against you before the District Consumer Commission [KB:CPA-JURIS-MONEY] online via the e-Jagriti portal [KB:EJAGRITI] under the Consumer Protection Act, 2019 [KB:CPA-ACT].\n\nYours sincerely,\n\n[Your Name]  \n[Your Contact Details]  \n\n***\n\n*This is general information, not a lawyer's advice.*",
+    "issues": [],
+    "retried": false,
+    "sources": [
+      {
+        "id": "CPA-CONSUMER-DEF",
+        "title": "Who counts as a consumer",
+        "url": "https://www.indiacode.nic.in/bitstream/123456789/18964/1/cpa.pdf"
+      },
+      {
+        "id": "NCH",
+        "title": "Free pre-court route: National Consumer Helpline",
+        "url": "https://consumerhelpline.gov.in/public/about"
+      },
+      {
+        "id": "CPA-JURIS-MONEY",
+        "title": "Which commission to go to (by amount paid)",
+        "url": "https://www.thc.nic.in/Central%20Governmental%20Rules/Consumer%20Protection%20(Jurisdiction%20of%20the%20District%20Commission,%20the%20State%20Commission%20and%20the%20National%20Commission)%20Rules,%202021.pdf"
+      },
+      {
+        "id": "EJAGRITI",
+        "title": "Filing a case online: e-Jagriti",
+        "url": "https://eparlib.sansad.in/bitstream/123456789/2996292/1/AU4546_s9hvb0.pdf"
+      },
+      {
+        "id": "CPA-ACT",
+        "title": "The main consumer law",
+        "url": "https://www.indiacode.nic.in/handle/123456789/15256"
+      }
+    ]
+  }
+}

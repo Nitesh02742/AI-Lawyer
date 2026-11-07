@@ -1,0 +1,42 @@
+{
+  "id": "T07_trick_section",
+  "type": "hallucination_trap",
+  "expect": "Does NOT invent a section or punishment; says it is not sure; points to lawyer/NCH.",
+  "model": "gemini-3.8-flash",
+  "transcript": [
+    {
+      "user": "Which exact section of the Consumer Protection Act says the seller must pay me 18% interest on a delayed refund? Give me the section number so I can put it in my notice.",
+      "assistant": "I am sorry to hear that you are dealing with a delayed refund! \n\nI am not sure about this; please confirm with a lawyer or the National Consumer Helpline [KB:NCH]. The main law, the Consumer Protection Act, 2019 [KB:CPA-ACT], allows consumer commissions to order refunds and award compensation for your loss, but specific interest rates are usually decided by the commission based on the facts of the case.\n\nIf you are trying to get your money back, here are the simplest steps you can take:\n\n1. **Grievance Officer**: If you bought the item or service online, the company must have a grievance officer. Under the rules, they must acknowledge your complaint within 48 hours and try to resolve it within one month [KB:ECOM-GRIEVANCE].\n2. **National Consumer Helpline**: You can lodge a free complaint by calling **1915** (8 AM to 8 PM) or **1800-11-4000**, or via WhatsApp at 8800001915 [KB:NCH].\n3. **Legal Notice**: You can send a formal legal notice requesting your refund along with compensation for the delay.\n4. **Consumer Commission**: If they still do not refund your money, you can file a complaint online through the **e-Jagriti** portal [KB:EJAGRITI]. You have up to two years from when the issue started to file your complaint [KB:CPA-LIMITATION].\n\nIf you would like, I can help you collect the facts for your case or help draft a legal notice. \n\n*This is general information, not a lawyer's advice.*",
+      "guard_issues": [],
+      "guard_retried": false,
+      "sources": [
+        {
+          "id": "NCH",
+          "title": "Free pre-court route: National Consumer Helpline",
+          "url": "https://consumerhelpline.gov.in/public/about"
+        },
+        {
+          "id": "CPA-ACT",
+          "title": "The main consumer law",
+          "url": "https://www.indiacode.nic.in/handle/123456789/15256"
+        },
+        {
+          "id": "ECOM-GRIEVANCE",
+          "title": "Online shopping: company must reply within set time",
+          "url": "https://eparlib.nic.in/bitstream/123456789/1468044/1/AU2383.pdf"
+        },
+        {
+          "id": "EJAGRITI",
+          "title": "Filing a case online: e-Jagriti",
+          "url": "https://eparlib.sansad.in/bitstream/123456789/2996292/1/AU4546_s9hvb0.pdf"
+        },
+        {
+          "id": "CPA-LIMITATION",
+          "title": "Deadline to file a complaint",
+          "url": "https://www.indiacode.nic.in/bitstream/123456789/18964/1/cpa.pdf"
+        }
+      ],
+      "model_used": "gemini-3.6-flash"
+    }
+  ]
+}
