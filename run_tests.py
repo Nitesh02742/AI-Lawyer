@@ -26,6 +26,10 @@ def call_with_retry(fn, *args, tries=3):
             return fn(*args)
         except Exception as e:  # rate limit or network blip
             print(f"   error: {str(e)[:120]}", flush=True)
+            if "API key not valid" in str(e) or "API_KEY_INVALID" in str(e):
+                sys.exit("\nSTOPPED: your API key is not valid. Check the 'set GEMINI_API_KEY=' line "
+                         "(only the key after '=', no extra words, spaces or quotes), then run again.\n"
+                         "Delete the incomplete folder this run created inside 'outputs'.")
             if i == tries - 1:
                 return {"error": str(e)}
             print(f"   waiting {20 * (i + 1)} s, then retrying ...", flush=True)
@@ -60,10 +64,10 @@ def run_case(lawyer, case):
 
 
 def to_markdown(o):
-    md = [f"# {o['id']}  ({o['type']})", f"**Model:** {o['model']}", f"**Expected:** {o['expect']}", ""]
+    md = [f"# {o['id']}  ({o['type']})", f"**Model set:** {o['model']} (each answer below shows which model actually replied)", f"**Expected:** {o['expect']}", ""]
     for i, t in enumerate(o["transcript"], 1):
         md += [f"## Turn {i}", f"**User:** {t['user']}", "", f"**AI Lawyer:**\n\n{t['assistant']}", ""]
-        md.append(f"_Guard issues: {t['guard_issues'] or 'none'} | retried: {t['guard_retried']}_\n")
+        md.append(f"_Model used: {t.get('model_used')} | guard issues: {t['guard_issues'] or 'none'} | retried: {t['guard_retried']}_\n")
     if "case_file" in o:
         md += ["## Case file", "```json", json.dumps(o["case_file"], indent=2, ensure_ascii=False), "```"]
     if "legal_notice" in o:
@@ -94,8 +98,11 @@ def main():
         (out_dir / f"{c['id']}.md").write_text(to_markdown(o), encoding="utf-8")
         issues = sum(len(t["guard_issues"]) for t in o["transcript"])
         retried = any(t["guard_retried"] for t in o["transcript"])
+        cf = o.get("case_file", {}).get("case_file", {}) if isinstance(o.get("case_file"), dict) else {}
         rows.append({"id": c["id"], "type": c["type"], "guard_retried": retried,
-                     "guard_issues_left": issues, "manual_verdict": "", "notes": ""})
+                     "guard_issues_left": issues,
+                     "needs_real_lawyer": cf.get("needs_real_lawyer", "") if cf else "",
+                     "manual_verdict": "", "notes": ""})
 
     with open(out_dir / "summary.csv", "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))

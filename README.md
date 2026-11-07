@@ -17,6 +17,11 @@ It then:
 - A code **guard** (`check_answer` in `lawyer_core.py`) scans every answer for section numbers, court-case
   citations, helpline numbers and source tags that are **not** in the verified file. If it finds any, the
   model is asked once to rewrite; anything still left is shown to the user as a warning.
+- The guard also flags website addresses that are not in the file and legal conclusions the file does not
+  support (like "entitled" or "unfair trade practice"), and asks for one rewrite of chat answers, case files
+  and notices.
+- **The lawyer rule is enforced in code, not left to the model:** if the user mentions more than Rs 50 lakh, or
+  a problem that may be more than two years old, the answer and the case file always say to see a real lawyer.
 - The user sees the source links under each answer.
 
 ## Files

@@ -52,7 +52,9 @@ def system_prompt(data, verified):
 You ONLY help with consumer problems: {data['scope']}
 
 HOW TO TALK
-- Reply in the same language and script the user writes in (Hindi, Hinglish, English, or any Indian language).
+- Reply ONLY in the language of the question the user has just asked, in the same script. English question ->
+  English answer (no Hindi or Hinglish words). Hindi question -> Hindi. Hinglish -> Hinglish. Tamil -> Tamil.
+  If the user switches language, switch with them.
 - Use simple words. Short paragraphs. No legal jargon without explaining it.
 - Be warm. People who come to you are often stressed.
 
@@ -72,6 +74,13 @@ STRICT RULES ABOUT LAW (most important)
 - Never promise an outcome ("you will surely win", "you will get compensation").
 - If the problem is outside your scope ({', '.join(data['out_of_scope'])}), say clearly that you cannot
   help with that and suggest they consult a lawyer or their District Legal Services Authority for free legal aid.
+- Never state a legal conclusion that is not written in the verified sources, such as "you are entitled to a
+  replacement", "this is an unfair trade practice" or "their policy is illegal". Say "you may have a claim" and
+  let the consumer commission or a lawyer decide.
+- Never give a website address, email or phone number unless it is written in the verified sources.
+- Recommend a real lawyer, clearly and early, when: the amount paid is above Rs 50 lakh; the problem may be
+  more than two years old (the filing deadline may have passed); the other side has started legal action; or
+  there is a criminal angle. Say why.
 - If someone is in danger or facing a threat or a crime, tell them to call 112 immediately.
 - Always end advice with one line reminding them this is general information, not a lawyer's advice.
 
@@ -111,12 +120,13 @@ CASE_FILE_SCHEMA = {
 }
 
 CASE_FILE_INSTRUCTION = """From the conversation so far, build a case file in English.
-- Use ONLY facts the user actually said. If a fact is unknown, write "not provided". Never invent dates or amounts.
+- Use ONLY facts the user actually said. Do not add legal conclusions (like "entitled" or "unfair trade practice"). If a fact is unknown, write "not provided". Never invent dates or amounts.
 - timeline: every dated event in order. Use the user's own date wording if exact dates are unknown.
 - evidence_missing: proof that would help but the user has not mentioned (bill, order ID, screenshots, emails...).
 - next_steps: simple actions in order. Only mention helplines/portals from the verified sources, with [KB:ID] tags.
-- needs_real_lawyer: true if the matter is outside consumer scope, very high value, has a criminal angle,
-  or the other side has already started legal action."""
+- needs_real_lawyer: true if the matter is outside consumer scope, the amount paid is above Rs 50 lakh, the
+  problem may be more than two years old, it has a criminal angle, or the other side has started legal action.
+  Give the reason in lawyer_reason."""
 
 NOTICE_INSTRUCTION = """Draft a short legal notice from the consumer to the opposite party, based ONLY on the case file below.
 - Plain, polite, firm English. Address to the company / its grievance officer.
@@ -124,6 +134,9 @@ NOTICE_INSTRUCTION = """Draft a short legal notice from the consumer to the oppo
   per what_they_want), and a deadline of 15 days to respond, after which the consumer may approach the
   National Consumer Helpline and the consumer commission.
 - You may reference ONLY laws in the verified sources, with [KB:ID] tags. No other sections or cases.
+- Do not state legal conclusions that are not in the verified sources (for example "unfair trade practice",
+  "entitled to", "illegal"). Describe the facts and the demand instead.
+- No website addresses, emails or phone numbers except those written in the verified sources.
 - Use placeholders like [Your full address] for anything not in the case file. Never invent facts.
 - Do not add a lawyer's name or signature. It is sent by the consumer personally.
 
@@ -195,7 +208,11 @@ class Lawyer:
     def reply(self, history):
         """Chat answer, checked by the guard. If the guard finds problems, ask the model once to fix them."""
         answer = self._call(self.to_contents(history))
+        question = next((m.get("text", "") for m in reversed(history) if m["role"] == "user"), "")
         issues = check_answer(answer, self.by_id)
+        lang = language_issue(question, answer)
+        if lang:
+            issues = issues + [lang]
         retried = False
         if issues:
             retried = True
@@ -205,24 +222,53 @@ class Lawyer:
             )
             answer = self._call(self.to_contents(history), extra_system=fix)
             issues = check_answer(answer, self.by_id)
+            lang = language_issue(question, answer)
+            if lang:
+                issues = issues + [lang]
+        reasons = lawyer_reasons(user_text(history))
+        already = any(LAWYER_NOTE_MARK in m.get("text", "") for m in history if m["role"] == "assistant")
+        if reasons and not already:
+            answer += f"\n\n{LAWYER_NOTE_MARK} **Please talk to a real lawyer:** " + "; ".join(reasons) + "."
         return {"text": answer, "issues": issues, "retried": retried, "sources": cited_sources(answer, self.by_id),
-                "model_used": self.last_model_used}
+                "model_used": self.last_model_used, "lawyer_flags": reasons}
+
+    def _case_json(self, contents, extra_system=""):
+        raw = self._call(contents, json_schema=CASE_FILE_SCHEMA, extra_system=extra_system)
+        try:
+            return json.loads(raw)
+        except json.JSONDecodeError:
+            return {"error": "model did not return valid JSON", "raw": raw}
 
     def case_file(self, history):
         contents = self.to_contents(history) + [types.Content(role="user", parts=[types.Part(text=CASE_FILE_INSTRUCTION)])]
-        raw = self._call(contents, json_schema=CASE_FILE_SCHEMA)
-        try:
-            cf = json.loads(raw)
-        except json.JSONDecodeError:
-            cf = {"error": "model did not return valid JSON", "raw": raw}
+        cf = self._case_json(contents)
+        first_issues = check_answer(json.dumps(cf, ensure_ascii=False), self.by_id)
+        if first_issues:  # one rewrite, like the chat
+            fix = ("\n\nYOUR PREVIOUS DRAFT BROKE THE RULES: " + "; ".join(first_issues)
+                   + ". Rewrite the case file without those statements or references.")
+            cf = self._case_json(contents, extra_system=fix)
+        reasons = lawyer_reasons(user_text(history) + " " + str(cf.get("amount_paid", "")))
+        if reasons and "error" not in cf:
+            cf["needs_real_lawyer"] = True
+            old = cf.get("lawyer_reason", "")
+            keep = old if old and old.lower() not in ("not provided", "not applicable", "") else ""
+            cf["lawyer_reason"] = "; ".join([r[0].upper() + r[1:] for r in reasons] + ([keep] if keep else []))
         issues = check_answer(json.dumps(cf, ensure_ascii=False), self.by_id)
-        return {"case_file": cf, "issues": issues}
+        return {"case_file": cf, "issues": issues, "lawyer_flags": reasons}
 
     def legal_notice(self, case_file):
         prompt = NOTICE_INSTRUCTION.format(case_file=json.dumps(case_file, indent=2, ensure_ascii=False))
-        text = self._call([types.Content(role="user", parts=[types.Part(text=prompt)])])
+        contents = [types.Content(role="user", parts=[types.Part(text=prompt)])]
+        text = self._call(contents)
         issues = check_answer(text, self.by_id)
-        return {"text": text, "issues": issues, "sources": cited_sources(text, self.by_id)}
+        retried = False
+        if issues:
+            retried = True
+            fix = ("\n\nYOUR PREVIOUS DRAFT BROKE THE RULES: " + "; ".join(issues)
+                   + ". Rewrite the notice without those statements or references.")
+            text = self._call(contents, extra_system=fix)
+            issues = check_answer(text, self.by_id)
+        return {"text": text, "issues": issues, "retried": retried, "sources": cited_sources(text, self.by_id)}
 
 
 # ---------------------------------------------------------------- the guard
@@ -240,6 +286,13 @@ PHONE_RE = re.compile(
     r"\D{0,25}?(\+?\d[\d\- ]{2,15}\d)",
     re.IGNORECASE,
 )
+
+
+# A web address: anything like name.gov.in, name.nic.in, name.com ...
+URL_RE = re.compile(r"\b((?:[a-z0-9-]+\.)+(?:gov\.in|nic\.in|co\.in|org\.in|in|com|org|net))\b", re.IGNORECASE)
+# Legal conclusions the verified file does not support
+CLAIM_RE = re.compile(r"\b(entitled|haqdaar|hakdaar|unfair trade practice)\b|हकदार|हक़दार", re.IGNORECASE)
+MONEY_NEAR_RE = re.compile(r"rs\.?|₹|rupee|rupay|inr|रुपये", re.IGNORECASE)
 
 
 def _digits(s):
@@ -263,6 +316,69 @@ def allowed_numbers(by_id):
     return {_digits(n) for n in re.findall(r"\+?\d[\d\- ]*\d", text)}
 
 
+def allowed_sites(by_id):
+    sites = set()
+    for e in by_id.values():
+        for m in URL_RE.finditer(e["plain"] + " " + e["source"]):
+            sites.add(m.group(1).lower().removeprefix("www."))
+    return sites
+
+
+# ---------------------------------------------------------------- lawyer rule (code, not the model)
+LAWYER_NOTE_MARK = "⚖️"
+AMOUNT_RE = re.compile(r"(\d+(?:[.,]\d+)?)\s*(lakhs?|lacs?|crores?|cr\b|लाख|करोड़|करोड)", re.IGNORECASE)
+RUPEES_RE = re.compile(r"(?:rs\.?|₹|inr)\s*([\d,]{7,})|([\d,]{7,})\s*(?:rs|rupees|रुपये)", re.IGNORECASE)
+YEARS_AGO_RE = re.compile(r"(\d+)\s*(?:years?|yrs?|saal|sal|वर्ष|साल)\s*(?:ago|pehle|pahle|पहले|purana|old)?", re.IGNORECASE)
+YEAR_RE = re.compile(r"\b(19\d\d|20\d\d)\b")
+
+
+SCRIPTS = {"Devanagari": (0x0900, 0x097F), "Tamil": (0x0B80, 0x0BFF), "Bengali": (0x0980, 0x09FF),
+           "Telugu": (0x0C00, 0x0C7F), "Kannada": (0x0C80, 0x0CFF), "Malayalam": (0x0D00, 0x0D7F),
+           "Gujarati": (0x0A80, 0x0AFF), "Gurmukhi": (0x0A00, 0x0A7F), "Odia": (0x0B00, 0x0B7F)}
+
+
+def main_script(text):
+    """The writing system most letters in the text use: 'Latin' (English/Hinglish) or an Indian script."""
+    counts = {"Latin": sum(c.isascii() and c.isalpha() for c in text)}
+    for name, (lo, hi) in SCRIPTS.items():
+        counts[name] = sum(lo <= ord(c) <= hi for c in text)
+    return max(counts, key=counts.get) if any(counts.values()) else "Latin"
+
+
+def language_issue(question, answer):
+    q, a = main_script(question), main_script(answer)
+    if q != a:
+        return f"the question is written in {q} script but you answered in {a} script; answer in the question's language"
+    return None
+
+
+def user_text(history):
+    return " ".join(m.get("text", "") for m in history if m["role"] == "user")
+
+
+def largest_amount(text):
+    vals = []
+    for num, unit in AMOUNT_RE.findall(text):
+        n = float(num.replace(",", "."))
+        vals.append(n * (1e7 if unit.lower().startswith(("cr", "कर")) else 1e5))
+    for a, b in RUPEES_RE.findall(text):
+        vals.append(float((a or b).replace(",", "")))
+    return max(vals, default=0)
+
+
+def lawyer_reasons(text, this_year=None):
+    """Reasons a real lawyer is needed, decided by code from what the user said."""
+    import datetime
+    this_year = this_year or datetime.date.today().year
+    reasons = []
+    if largest_amount(text) > 50e5:
+        reasons.append("the amount is above Rs 50 lakh, so the case goes to the State or National Commission")
+    years = [int(n) for n in YEARS_AGO_RE.findall(text)] + [this_year - int(y) for y in YEAR_RE.findall(text)]
+    if any(y >= 2 for y in years):
+        reasons.append("the problem may be more than two years old, so the filing deadline may have passed [KB:CPA-LIMITATION]")
+    return reasons
+
+
 def check_answer(text, by_id):
     """Return a list of problems: unknown source tags, section numbers or case names not in the verified file,
     and helpline-style numbers that are not in the verified file."""
@@ -281,8 +397,19 @@ def check_answer(text, by_id):
     for m in CASE_RE.finditer(text):
         issues.append(f"mentioned a court case '{m.group(0)}' which is not in the verified sources")
 
+    ok_sites = allowed_sites(by_id)
+    for m in URL_RE.finditer(text):
+        site = m.group(1).lower().removeprefix("www.")
+        if not any(site == ok or site.endswith("." + ok) or ok.endswith("." + site) for ok in ok_sites):
+            issues.append(f"mentioned the website '{m.group(1)}' which is not in the verified sources")
+
+    for m in CLAIM_RE.finditer(text):
+        issues.append(f"stated a legal conclusion ('{m.group(0)}') that is not in the verified sources")
+
     ok_nums = allowed_numbers(by_id) | {"112"}  # 112 = national emergency number
     for m in PHONE_RE.finditer(text):
+        if MONEY_NEAR_RE.search(m.group(0)):
+            continue  # "phone ... Rs 18000" is a price, not a phone number
         num = _digits(m.group(1))
         if len(num) >= 3 and num not in ok_nums:
             issues.append(f"mentioned the phone number '{m.group(1).strip()}' which is not in the verified sources")
