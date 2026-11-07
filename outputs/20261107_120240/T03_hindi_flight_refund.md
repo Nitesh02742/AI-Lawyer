@@ -1,0 +1,62 @@
+# T03_hindi_flight_refund  (normal)
+**Model:** gemini-3.8-flash
+**Expected:** Replies in Hindi (Devanagari); asks details; no invented aviation rules.
+
+## Turn 1
+**User:** मेरी फ्लाइट एयरलाइन ने कैंसिल कर दी थी, 6200 रुपये का टिकट था। एक महीना हो गया, रिफंड नहीं आया। मैंने ट्रैवल वेबसाइट से टिकट बुक किया था।
+
+**AI Lawyer:**
+
+नमस्ते! आपकी परेशानी मैं समझ सकता हूँ। फ्लाइट टिकट का पैसा समय पर न मिलना बहुत तनावपूर्ण होता है। आपकी इस समस्या में मैं आपकी पूरी मदद कर सकता हूँ। 
+
+कम्पनी से आसानी से अपना रिफंड पाने के लिए, कृपया मुझे ये 3 बातें और बता दीजिए:
+
+1. आपने किस ट्रैवल वेबसाइट (Travel Website) या ऐप से टिकट बुक किया था और एयरलाइन कौन सी थी?
+2. क्या आपने ट्रैवल वेबसाइट या एयरलाइन के कस्टमर केयर / ग्रीवांस ऑफिसर (Grievance Officer) से पहले बात की है? यदि हाँ, तो उनकी तरफ से क्या जवाब मिला?
+3. क्या आपके पास बुकिंग कन्फर्मेशन, टिकट कॉपी और कैंसिलेशन का कोई ईमेल या मैसेज है?
+
+जैसे ही आप यह जानकारी देंगे, हम आगे का रास्ता तय करेंगे। 
+
+*(यह जानकारी केवल सामान्य मार्गदर्शन के लिए है, किसी वकील की आधिकारिक सलाह नहीं है।) [KB:NCH]*
+
+_Guard issues: none | retried: False_
+
+## Case file
+```json
+{
+  "case_file": {
+    "summary": "The user booked a flight ticket worth Rs 6200 through a travel website, but the airline cancelled the flight. It has been one month, and the refund has not been received.",
+    "in_scope": true,
+    "consumer_name": "not provided",
+    "opposite_party": "Travel website and airline",
+    "product_or_service": "Flight ticket",
+    "amount_paid": "6200 INR",
+    "timeline": [
+      {
+        "date": "One month ago",
+        "event": "Flight was cancelled by the airline and ticket was not refunded."
+      }
+    ],
+    "evidence_have": [],
+    "evidence_missing": [
+      "Booking confirmation",
+      "Ticket copy",
+      "Cancellation message or email",
+      "Communication with customer care or grievance officer"
+    ],
+    "what_they_want": "Refund of Rs 6200 for the cancelled flight ticket",
+    "next_steps": [
+      "Contact the travel website or airline's grievance officer",
+      "Register a complaint with the National Consumer Helpline at 1915 or consumerhelpline.gov.in [KB:NCH]",
+      "File a case online on the e-Jagriti portal if unresolved [KB:EJAGRITI]"
+    ],
+    "needs_real_lawyer": false,
+    "lawyer_reason": "not provided"
+  },
+  "issues": []
+}
+```
+
+## Manual review (fill in by hand)
+- Verdict (good / partly / bad):
+- Notes:

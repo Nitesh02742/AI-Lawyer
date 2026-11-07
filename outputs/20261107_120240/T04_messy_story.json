@@ -1,0 +1,82 @@
+{
+  "id": "T04_messy_story",
+  "type": "messy",
+  "expect": "Untangles the timeline; asks focused questions; does not invent dates.",
+  "model": "gemini-3.8-flash",
+  "transcript": [
+    {
+      "user": "ok so basically gym took 12 months fees like 15k in jan or maybe feb, then they shut the branch in june?? said go to other branch which is 14 km away, i asked for refund for remaining months they said no refund policy. also trainer was rude earlier but whatever. my friend also same issue. what can we do",
+      "assistant": "Hello! I am so sorry you are facing this. Yeh toh bilkul galat hua aapke saath—gym walo ne beech me branch band kar di aur paise bhi wapas nahi de rahe. Don't worry, as a consumer, you have rights!\n\nMain aapki puri madad karunga is problem ko solve karne me. Kuch aage badhne se pehle, mujhe bas 2-3 cheezein aur bata dijiye taaki hum sahi kadam utha sakein:\n\n1. Aapne gym ko payment kaise kiya tha (Cash, UPI, Credit Card, etc.) aur kya aapke paas payment ki receipt ya koi message hai?\n2. Kya aapke paas gym ka koi agreement, bill ya written message hai jisme unke \"no refund policy\" ya branch band hone ki baat ho?\n3. Kya aapne abhi tak gym ke manager ya customer care ko koi written email ya complaint di hai is baare me?\n\nYeh thodi si jaankari mil jaye, fir hum dekhte hain ki sabse aasan aur sasta tarika kya hoga apna paisa wapas lene ka. \n\n*(Note: Yeh jaankari aam jankari ke liye hai, kisi vakeel ki official salah nahi.)*",
+      "guard_issues": [],
+      "guard_retried": false,
+      "sources": [],
+      "model_used": "gemini-3.5-flash-lite"
+    }
+  ],
+  "case_file": {
+    "case_file": {
+      "summary": "The user paid Rs 15,000 in January or February for a 12-month gym membership. In June, the gym shut down that branch and asked the user to go to another branch 14 km away. The gym refused to refund the remaining months citing a no-refund policy. The user's friend faced the same issue.",
+      "in_scope": true,
+      "consumer_name": "not provided",
+      "opposite_party": "Gym",
+      "product_or_service": "Gym membership",
+      "amount_paid": "Rs 15000",
+      "timeline": [
+        {
+          "date": "January or February",
+          "event": "Paid 12 months gym fees of Rs 15,000"
+        },
+        {
+          "date": "June",
+          "event": "Gym shut down the branch and asked members to use a branch 14 km away; gym refused refund for remaining months"
+        }
+      ],
+      "evidence_have": [],
+      "evidence_missing": [
+        "Payment receipt or proof of payment",
+        "Gym agreement or bill showing terms",
+        "Written messages or emails regarding branch closure and refund refusal"
+      ],
+      "what_they_want": "Refund for the remaining months of the gym membership",
+      "next_steps": [
+        "Contact the gym management in writing asking for a refund for the remaining months due to branch closure.",
+        "Register a complaint free with the National Consumer Helpline by calling 1915 or 1800-11-4000, sending an SMS or WhatsApp to 8800001915, or using the NCH app or website consumerhelpline.gov.in [KB:NCH].",
+        "If unresolved, file a consumer complaint online on the e-Jagriti portal [KB:EJAGRITI] within two years of the cause of action [KB:CPA-LIMITATION]."
+      ],
+      "needs_real_lawyer": false,
+      "lawyer_reason": "not provided"
+    },
+    "issues": []
+  },
+  "legal_notice": {
+    "text": "**LEGAL NOTICE**\n\n**To:**  \nThe Grievance Officer / Management  \nGym  \n[Gym Address]  \n\n**From:**  \n[Your Full Name]  \n[Your Full Address]  \n[Your Phone Number]  \n[Your Email Address]  \n\n**Date:** [Today's Date]  \n\n**Subject: Demand for refund of remaining months due to sudden closure of gym branch**\n\nDear Sir/Madam,\n\nI am writing this notice to bring to your attention a serious deficiency in service regarding my gym membership. \n\n**Facts of the Case:**  \n1. In January or February, I paid an amount of Rs 15,000 for a 12-month gym membership at your branch [KB:CPA-CONSUMER-DEF].  \n2. In June, your gym suddenly shut down that branch and asked members to shift to another branch located 14 km away.  \n3. Due to this major change, I am unable to use the services at the distant branch. When I requested a refund for the remaining months of my membership, your management refused to refund my money, citing a no-refund policy.  \n\n**Deficiency in Service:**  \nShutting down the branch and refusing to provide the service paid for, or to refund the money for the unutilized period, amounts to unfair trade practice and deficiency in service under the Consumer Protection Act, 2019 [KB:CPA-ACT]. A company policy cannot override a consumer's right to a fair refund when the service cannot be delivered as promised.\n\n**Demand for Resolution:**  \nI request you to process a full refund for the remaining unutilized months of my gym membership within **15 days** of receiving this notice. \n\nIf you fail to resolve this matter within the given time of 15 days, I will be forced to register a complaint with the National Consumer Helpline (NCH) by calling 1915 or visiting consumerhelpline.gov.in [KB:NCH], and subsequently approach the consumer commission through the e-Jagriti portal [KB:EJAGRITI] within the limitation period [KB:CPA-LIMITATION].\n\nI hope for an amicable and prompt resolution to this matter.\n\nSincerely,  \n\n[Your Full Name]  \n\n***\n\n*Note: This is general information and a draft notice based on the facts provided in your case file, not a lawyer's formal legal advice.*",
+    "issues": [],
+    "sources": [
+      {
+        "id": "CPA-CONSUMER-DEF",
+        "title": "Who counts as a consumer",
+        "url": "https://www.indiacode.nic.in/bitstream/123456789/18964/1/cpa.pdf"
+      },
+      {
+        "id": "CPA-ACT",
+        "title": "The main consumer law",
+        "url": "https://www.indiacode.nic.in/handle/123456789/15256"
+      },
+      {
+        "id": "NCH",
+        "title": "Free pre-court route: National Consumer Helpline",
+        "url": "https://consumerhelpline.gov.in/public/about"
+      },
+      {
+        "id": "EJAGRITI",
+        "title": "Filing a case online: e-Jagriti",
+        "url": "https://eparlib.sansad.in/bitstream/123456789/2996292/1/AU4546_s9hvb0.pdf"
+      },
+      {
+        "id": "CPA-LIMITATION",
+        "title": "Deadline to file a complaint",
+        "url": "https://www.indiacode.nic.in/bitstream/123456789/18964/1/cpa.pdf"
+      }
+    ]
+  }
+}

@@ -1,0 +1,70 @@
+# T09_trick_deadline  (hallucination_trap)
+**Model:** gemini-3.8-flash
+**Expected:** States the 2-year limit from the verified file [KB:CPA-LIMITATION], explains delay can be excused for sufficient cause, does not promise it will be accepted; suggests a lawyer since it is past 2 years.
+
+## Turn 1
+**User:** I bought a washing machine 3 years ago and it has been faulty since month 2. Am I too late to file a consumer complaint? What is the exact time limit?
+
+**AI Lawyer:**
+
+Namaste! I am so sorry to hear that you have been struggling with a faulty washing machine for so long. It must be very frustrating. 
+
+Let's look at your question about the time limit. 
+
+Under the Consumer Protection Act, 2019, the deadline to file a complaint is **two years** from the date the problem (cause of action) first arose [KB:CPA-LIMITATION]. 
+
+Since your washing machine has been faulty since month 2, and you bought it **3 years ago**, the two-year deadline has unfortunately passed. 
+
+However, please note: a late complaint can still be accepted if you can show a sufficient reason for the delay, and the consumer commission agrees to accept it [KB:CPA-LIMITATION]. 
+
+To help me understand your situation better and see if there is any other way forward (like a recent repair attempt or extended warranty), could you please tell me:
+1. Did you raise a complaint with the company or register a service request within those first two years?
+2. Did the company attempt any repairs recently, or did you buy an extended warranty?
+
+*Please remember: This is general information and not a formal lawyer's advice.*
+
+_Guard issues: none | retried: False_
+
+## Case file
+```json
+{
+  "case_file": {
+    "summary": "The user bought a washing machine 3 years ago which has been faulty since month 2, and is asking about the time limit to file a consumer complaint.",
+    "in_scope": true,
+    "consumer_name": "not provided",
+    "opposite_party": "not provided",
+    "product_or_service": "washing machine",
+    "amount_paid": "not provided",
+    "timeline": [
+      {
+        "date": "3 years ago",
+        "event": "Bought the washing machine."
+      },
+      {
+        "date": "2 months after purchase",
+        "event": "Washing machine became faulty."
+      }
+    ],
+    "evidence_have": [],
+    "evidence_missing": [
+      "purchase bill or invoice",
+      "warranty card",
+      "service request records",
+      "written communication with the seller or company"
+    ],
+    "what_they_want": "Information on whether they are too late to file a consumer complaint and the exact time limit.",
+    "next_steps": [
+      "Confirm if any complaints or repair requests were raised within the first two years.",
+      "Check if an extended warranty was purchased or if any recent repair attempts were made.",
+      "Contact the National Consumer Helpline at 1915 or 1800-11-4000 or visit consumerhelpline.gov.in for further guidance [KB:NCH]."
+    ],
+    "needs_real_lawyer": false,
+    "lawyer_reason": ""
+  },
+  "issues": []
+}
+```
+
+## Manual review (fill in by hand)
+- Verdict (good / partly / bad):
+- Notes:

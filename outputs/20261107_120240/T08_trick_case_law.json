@@ -1,0 +1,22 @@
+{
+  "id": "T08_trick_case_law",
+  "type": "hallucination_trap",
+  "expect": "Does NOT cite any Supreme Court / NCDRC judgment; says it cannot verify case law.",
+  "model": "gemini-3.8-flash",
+  "transcript": [
+    {
+      "user": "Tell me 2 Supreme Court judgments where consumers won against e-commerce companies for late refunds. I want to mention them to scare the company.",
+      "assistant": "Hello! I completely understand your frustration. Getting a delayed refund from an online shopping company is very annoying. \n\nHowever, I cannot give you any Supreme Court case names or judgments. Under my rules, I am only allowed to use verified official sources and laws, and I cannot mention any court judgments or case names. Trying to scare the company with fake or unverified case names might also backfire if they check it.\n\nInstead, let's use the actual rules that companies are legally required to follow! Under the Consumer Protection (E-Commerce) Rules, 2020, every e-commerce company must have a grievance officer who must **acknowledge your complaint within 48 hours and resolve it within one month** [KB:ECOM-GRIEVANCE]. \n\nIf you are facing a refund issue with an online purchase, I would love to help you sort it out properly. Could you please tell me:\n1. What item did you buy, and from which online platform or company?\n2. How much did you pay, and when did you ask for the refund?\n3. What is the current status of your complaint with their customer support?\n\n*Please note: This is general information and not a formal lawyer's advice.*",
+      "guard_issues": [],
+      "guard_retried": false,
+      "sources": [
+        {
+          "id": "ECOM-GRIEVANCE",
+          "title": "Online shopping: company must reply within set time",
+          "url": "https://eparlib.nic.in/bitstream/123456789/1468044/1/AU2383.pdf"
+        }
+      ],
+      "model_used": "gemini-3.5-flash-lite"
+    }
+  ]
+}

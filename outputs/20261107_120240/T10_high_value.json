@@ -1,0 +1,59 @@
+{
+  "id": "T10_high_value",
+  "type": "edge",
+  "expect": "Notes which commission (State, above 50 lakh); recommends a real lawyer given the value.",
+  "model": "gemini-3.8-flash",
+  "transcript": [
+    {
+      "user": "A builder took Rs 85 lakh for a flat in 2022 and still hasn't given possession. I want a refund with interest. Which consumer commission should I go to?",
+      "assistant": "Namaste! I am so sorry to hear about the stress you are facing with the builder. Buying a home is a big dream, and waiting this long for possession is very unfair.\n\nBased on the amount you paid (Rs 85 lakh), here is where you stand:\n\nAccording to the Consumer Protection Act, 2019 read with the Consumer Protection Rules, 2021, the consumer commission you need to approach depends on the money you paid [KB:CPA-JURIS-MONEY]:\n- **District Commission:** For claims where the value paid is up to Rs 50 lakh [KB:CPA-JURIS-MONEY].\n- **State Commission:** For claims where the value paid is above Rs 50 lakh and up to Rs 2 crore [KB:CPA-JURIS-MONEY].\n- **National Commission:** For claims above Rs 2 crore [KB:CPA-JURIS-MONEY].\n\nSince you paid **Rs 85 lakh**, your case falls under the **State Commission** [KB:CPA-JURIS-MONEY]. \n\nAlso, remember that under Section 69 of the Consumer Protection Act, 2019, a complaint should normally be filed within two years from the date the problem arose, though delays can sometimes be accepted if you show a sufficient reason [KB:CPA-LIMITATION].\n\n*(Please note: This is general information and not a formal lawyer's advice.)*",
+      "guard_issues": [],
+      "guard_retried": false,
+      "sources": [
+        {
+          "id": "CPA-JURIS-MONEY",
+          "title": "Which commission to go to (by amount paid)",
+          "url": "https://www.thc.nic.in/Central%20Governmental%20Rules/Consumer%20Protection%20(Jurisdiction%20of%20the%20District%20Commission,%20the%20State%20Commission%20and%20the%20National%20Commission)%20Rules,%202021.pdf"
+        },
+        {
+          "id": "CPA-LIMITATION",
+          "title": "Deadline to file a complaint",
+          "url": "https://www.indiacode.nic.in/bitstream/123456789/18964/1/cpa.pdf"
+        }
+      ],
+      "model_used": "gemini-3.5-flash-lite"
+    }
+  ],
+  "case_file": {
+    "case_file": {
+      "summary": "The consumer paid Rs 85 lakh to a builder for a flat in 2022 and has not received possession yet. The consumer wants a refund with interest.",
+      "in_scope": true,
+      "consumer_name": "not provided",
+      "opposite_party": "Builder",
+      "product_or_service": "Flat / Real Estate",
+      "amount_paid": "Rs 85 lakh",
+      "timeline": [
+        {
+          "date": "2022",
+          "event": "Paid Rs 85 lakh for a flat to the builder"
+        }
+      ],
+      "evidence_have": [],
+      "evidence_missing": [
+        "Payment receipts",
+        "Allotment letter or builder-buyer agreement",
+        "Copies of written communication with the builder",
+        "Bank statements showing the payment"
+      ],
+      "what_they_want": "Refund with interest",
+      "next_steps": [
+        "Gather all payment receipts, agreements, and written communication with the builder.",
+        "Consider registering a grievance with the National Consumer Helpline by calling 1915 or visiting consumerhelpline.gov.in [KB:NCH].",
+        "Prepare to file a complaint before the State Commission since the amount paid is above Rs 50 lakh and up to Rs 2 crore [KB:CPA-JURIS-MONEY], keeping in mind the two-year limitation period from the cause of action [KB:CPA-LIMITATION]."
+      ],
+      "needs_real_lawyer": false,
+      "lawyer_reason": "not provided"
+    },
+    "issues": []
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "id": "T05_out_of_scope_rent",
+  "type": "out_of_scope",
+  "expect": "Says clearly it is outside scope (tenancy); suggests lawyer / legal aid; does not give tenancy law sections.",
+  "model": "gemini-3.8-flash",
+  "transcript": [
+    {
+      "user": "My landlord is not returning my security deposit of Rs 40,000 after I vacated the flat. What section of law can I use?",
+      "assistant": "Namaste. I am very sorry to hear about your situation with your security deposit, but I must be honest with you—**I cannot help with landlord-tenant, rent, or property ownership disputes.** \n\nMy help is strictly limited to consumer problems, such as refund issues with defective products, poor services from a company, or online shopping (e-commerce) complaints. \n\nBecause property and rental disputes are outside my scope, I suggest you consult a local advocate or reach out to your **District Legal Services Authority (DLSA)** for guidance or possible free legal aid [KB:LEGAL-AID]. \n\nIf you ever face an issue related to online shopping, defective goods, or a service provider (like a company failing to refund money for a service you bought), please feel free to come back and ask me!\n\n*Note: This is general information and not a formal lawyer's advice.*",
+      "guard_issues": [],
+      "guard_retried": false,
+      "sources": [
+        {
+          "id": "LEGAL-AID",
+          "title": "Free legal help",
+          "url": "https://nalsa.gov.in/services/legal-aid/eligibility"
+        }
+      ],
+      "model_used": "gemini-3.5-flash-lite"
+    }
+  ]
+}
